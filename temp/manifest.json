@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.13",
+  "id": "fbf411d0-102e-11ed-bdb0-c79ea1ed2870",
+  "version": "0.0.1",
+  "packageName": "tabmeetingdetails",
+  "developer": {
+    "name": "Markus Moeller",
+    "websiteUrl": "https://b1f8-46-128-193-151.ngrok.io",
+    "privacyUrl": "https://b1f8-46-128-193-151.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://b1f8-46-128-193-151.ngrok.io/tou.html"
+  },
+  "name": {
+    "short": "Tab Meeting Details",
+    "full": "Tab Meeting Details"
+  },
+  "description": {
+    "short": "TODO: add short description here",
+    "full": "TODO: add full description here"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#D85028",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://b1f8-46-128-193-151.ngrok.io/meetingDetailsTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team",
+        "groupchat"
+      ],
+      "context": [
+        "meetingChatTab",
+        "meetingDetailsTab",
+        "meetingSidePanel",
+        "meetingStage"
+      ],
+      "meetingSurfaces": [
+        "sidePanel",
+        "stage"
+      ]
+    }
+  ],
+  "staticTabs": [],
+  "bots": [
+    {
+      "botId": "f295ddc7-3f91-424d-a337-0e48b97b1793",
+      "needsChannelSelector": true,
+      "isNotificationOnly": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "team",
+            "personal"
+          ],
+          "commands": [
+            {
+              "title": "Help",
+              "description": "Shows help information"
+            },
+            {
+              "title": "Who am I?",
+              "description": "Shows information about your Teams user"
+            },
+            {
+              "title": "Mention me",
+              "description": "Let the bot @mention you"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "connectors": [],
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "b1f8-46-128-193-151.ngrok.io"
+  ],
+  "showLoadingIndicator": false,
+  "isFullScreen": false,
+  "webApplicationInfo": {
+    "id": "f295ddc7-3f91-424d-a337-0e48b97b1793",
+    "resource": "https://RscPermission"
+  },
+  "authorization": {
+      "permissions": {
+          "resourceSpecific": [
+              {
+                  "name": "OnlineMeeting.ReadBasic.Chat",
+                  "type": "Application"
+              }
+          ]
+      }
+  }
+}
