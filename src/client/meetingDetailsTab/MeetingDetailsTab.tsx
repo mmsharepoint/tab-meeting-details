@@ -65,33 +65,33 @@ export const MeetingDetailsTab = () => {
     /**
      * The render() method to create the UI of the tab
      */
-    return (
-        <Provider theme={theme}>
-            <Flex fill={true} column styles={{
-                padding: ".8rem 0 .8rem .5rem"
-            }}>
-                <Flex.Item>
-                    <Header content="Meeting Information" />
-                </Flex.Item>
-                <Flex.Item>
-                    <div>
-                        <Menu
-                            defaultActiveIndex={0}
-                            activeIndex={activeMenuIndex}
-                            onActiveIndexChange={onActiveIndexChange}
-                            items={menuItems}
-                            underlined
-                            primary
-                            accessibility={tabListBehavior}
-                            aria-label="Meeting Imformation"
-                        />
-                        <div className="l-content">
-                            {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} />}
-                            {activeMenuIndex === 1 && <MeetingParticipant meetingParticipant={meetingParticipant} />}
-                        </div>
-                    </div>
-                </Flex.Item>
-            </Flex>
-        </Provider>
-    );
+  return (
+    <Provider theme={theme}>
+      <Flex fill={true} column styles={{
+          padding: ".8rem 0 .8rem .5rem"
+      }}>
+        <Flex.Item>
+          <Header content="Meeting Information" />
+        </Flex.Item>
+        <Flex.Item>
+          <div>
+            <Menu
+                defaultActiveIndex={0}
+                activeIndex={activeMenuIndex}
+                onActiveIndexChange={onActiveIndexChange}
+                items={menuItems}
+                underlined
+                primary
+                accessibility={tabListBehavior}
+                aria-label="Meeting Imformation"
+            />
+            <div className="l-content">
+                {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} />}
+                {activeMenuIndex === 1 && <MeetingParticipant meetingParticipant={meetingParticipant} />}
+            </div>
+          </div>
+        </Flex.Item>
+      </Flex>
+    </Provider>
+  );
 };

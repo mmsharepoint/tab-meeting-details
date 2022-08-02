@@ -1,32 +1,88 @@
 # Tab Meeting Details - Microsoft Teams App
 
-Generate a Microsoft Teams application.
+Teams meeting app showing up in (theoretically) any context and displaying details about the meeting and current participant.
 
-TODO: Add your documentation here
+## Summary
 
-## Getting started with Microsoft Teams Apps development
+This sample is a Teams meeting app created using the Teams Yeoman Generator. It's a tab showing up in (theoretically) any context and displaying details about the meeting and current participant. The retieval of the details is established by usage of an Azure Bot and the Bot Framework SDK either native or with corresponding Rest Api.
 
-Head on over to [Microsoft Teams official documentation](https://developer.microsoft.com/en-us/microsoft-teams) to learn how to build Microsoft Teams Tabs or the [Microsoft Teams Yeoman generator docs](https://github.com/PnP/generator-teams/docs) for details on how this solution is set up.
+Meeting Details in Meeting Chat Tab
 
-## Project setup
+![OnStageView](assets/07TeamsMeeting_MeetingDetails.png)
 
-All required source code are located in the `./src` folder:
+Participant Details in Meeting Chat Tab
 
-* `client` client side code
-* `server` server side code
-* `public` static files for the web site
-* `manifest` for the Microsoft Teams app manifest
+![OnStageView](assets/08TeamsMeeting_ParticipantDetails.png)
 
-For further details see the [Yo Teams documentation](https://github.com/PnP/generator-teams/docs)
+For further details see the author's [blog post](https://mmsharepoint.wordpress.com/2022/)
 
-## Building the app
+## Prerequisites
 
-The application is built using the `build` Gulp task.
+* [Office 365 tenant](https://dev.office.com/sharepoint/docs/spfx/set-up-your-development-environment)
+* [Node.js](https://nodejs.org) version 10.14.1 or higher
+* [Gulp CLI](https://github.com/gulpjs/gulp-cli) `npm install gulp-cli --global`
+* [ngrok](https://ngrok.com) or similar tunneling application is required for local testing
+* [Azure Bot](https://azure.microsoft.com/en-us/services/bot-services/)
 
-``` bash
-npm i -g gulp-cli
-gulp build
-```
+## Version history
+
+Version|Date|Author|Comments
+-------|----|----|--------
+1.0|Aug 02, 2022|[Markus Moeller](https://twitter.com/moeller2_0)|Initial release
+
+## Disclaimer
+
+**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
+
+## Minimal Path to Awesome
+- Clone the repository
+    ```bash
+    git clone https://github.com/mmsharepoint/tab-meeting-details.git
+    ```
+
+- In a console, navigate to `/tab-meeting-details`
+
+    ```bash
+    cd tab-meeting-details
+    ```
+
+- Install modules
+
+    ```bash
+    npm install
+    ```
+- You will need to register a Bot Channel for this app by executing the following steps
+    - Go to our Azure portal and Bot Services and click "Create"
+    - Pick "Azure Bot"
+    - Once again click the "Create" button inside
+    - Choose a valid name, subscription and resource group
+    - Free pricing tier is sufficient in this experimental phase
+    - Either create a Microsoft App ID on your own or let the Bot create it for you
+    (In the latter case you will get a secret which will be stored in an own Azure Key Vault, pay attention to clean up if you do not use that)
+    - Having the bot created, open the resource and under "Channels" add a featured "Teams channel". 
+    - Furthermore under Configuration add the following messaging endpoint: https://xxxxx.ngrok.io/api/messages 
+    (Later the xxxxx will be exchanged by the real given random ngrok url received)
+    - On the "Configuration" tab click "Manage" beside the Microsoft App ID and generate a new secret and note this down
+    - Paste App ID and secret into you local .env file got from .env-sample
+    - For further explanation see [here](https://mmsharepoint.wordpress.com/2021/09/21/microsoft-teams-meeting-apps-lifecycle-basics/#botchannel)
+- Enable Teams Developer Preview in your client via <Your Account> | About | Developer Preview
+
+- Package the app
+    ```bash
+    gulp manifest
+    ```
+- Start the app
+    ```bash
+    gulp serve --debug
+    ```
+- Create a new teams meeting with at least one participant
+- Open the meeting in Edit mode
+- At the right end of the tabs click (+) to add a new app and sideload your package
+
+## Features
+
+This is a Teams Tab meeting app to show up in side panel and meeting stageView
+* Show a tab in in-meeting experience in sidePanel
 
 ## Building the manifest
 
