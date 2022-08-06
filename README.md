@@ -14,7 +14,7 @@ Participant Details in Meeting Chat Tab
 
 ![OnStageView](assets/08TeamsMeeting_ParticipantDetails.png)
 
-For further details see the author's [blog post](https://mmsharepoint.wordpress.com/2022/)
+For further details see the author's [blog post](https://mmsharepoint.wordpress.com/2022/08/04/teams-meeting-details-with-bot-framework-sdk/)
 
 ## Prerequisites
 
@@ -81,8 +81,10 @@ Version|Date|Author|Comments
 
 ## Features
 
-This is a Teams Tab meeting app to show up in side panel and meeting stageView
-* Show a tab in in-meeting experience in sidePanel
+This is a Teams Tab meeting app to show up in chatTab or detailsTab
+* Show a tab in pre-meeting experience in chatTab or detailsTab
+* Use a Bot in Teams Meeting app
+* Use [Meeting apps Api references](https://docs.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/api-references?WT.mc_id=M365-MVP-5004617) to get meeting and participant details
 
 ## Building the manifest
 

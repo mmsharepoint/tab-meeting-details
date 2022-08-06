@@ -29,7 +29,7 @@ export const homeService = (options: any): express.Router => {
           });        
   }
 
-  async function getMeetingParticipants(req, res)
+  async function getMeetingParticipantDetails(req, res)
   {
     const meetingId = req.params.meetingID;
     const participantId = req.params.userID;
@@ -57,9 +57,9 @@ export const homeService = (options: any): express.Router => {
     });
   
   router.post(
-    "/getParticipants/:meetingID/:userID/:tenantID",
+    "/getParticipantDetails/:meetingID/:userID/:tenantID",
     async (req: any, res: express.Response, next: express.NextFunction) => {
-        getMeetingParticipants(req, res);
+        getMeetingParticipantDetails(req, res);
     });
 
   return router;
