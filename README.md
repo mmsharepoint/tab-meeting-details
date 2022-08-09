@@ -29,6 +29,7 @@ For further details see the author's [blog post](https://mmsharepoint.wordpress.
 Version|Date|Author|Comments
 -------|----|----|--------
 1.0|Aug 02, 2022|[Markus Moeller](https://twitter.com/moeller2_0)|Initial release
+1.1|Aug 02, 2022|[Markus Moeller](https://twitter.com/moeller2_0)|Bot Framework SDK in Bot activities added
 
 ## Disclaimer
 

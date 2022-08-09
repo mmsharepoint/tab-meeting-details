@@ -2,10 +2,11 @@ import * as React from "react";
 import { Provider, Flex, Text, Button, Header, Menu, tabListBehavior } from "@fluentui/react-northstar";
 import { useState, useEffect } from "react";
 import { useTeams } from "msteams-react-base-component";
-import { app } from "@microsoft/teams-js";
+import { app, TaskInfo, tasks } from "@microsoft/teams-js";
 import Axios from "axios";
 import { IMeetingDetails } from "../../model/IMeetingDetails";
 import { IMeetingParticipant } from "../../model/IMeetingParticipant";
+import { TaskCard } from "../../model/taskCard";
 import { MeetingDetails } from "./components/MeetingDetails";
 import { MeetingParticipant } from "./components/MeetingParticipant";
 
@@ -35,6 +36,26 @@ export const MeetingDetailsTab = () => {
     setMeetingDetails(response.data); 
   };
 
+  const reloadDetails = () => {
+    TaskCard!.actions![0].data!.data.meetingId = context?.meeting!.id!;
+    const taskCardAttachment = {
+                                contentType: "application/vnd.microsoft.card.adaptive",
+                                content: TaskCard } 
+    const taskModuleInfo: TaskInfo = {
+        title: "Snd Details",
+        card: JSON.stringify(taskCardAttachment),
+        width: 300,
+        height: 250,
+        completionBotId: process.env.MICROSOFT_APP_ID
+    };
+
+    tasks.startTask(taskModuleInfo, reloadDetailsCB);
+  };
+
+  const reloadDetailsCB = () => {
+      // tasks.submitTask({ meetingId: context?.meeting?.id }, process.env.MICROSOFT_APP_ID);        
+      tasks.submitTask();
+  };
   const getParticipant = async (meetingID: string, userId, tenantId) => {        
     const response = await Axios.post(`https://${process.env.PUBLIC_HOSTNAME}/api/getParticipantDetails/${meetingID}/${userId}/${tenantId}`);
     setMeetingParticipant(response.data);
@@ -86,7 +107,7 @@ export const MeetingDetailsTab = () => {
                 aria-label="Meeting Information"
             />
             <div className="l-content">
-                {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} />}
+                {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} reloadDetails={reloadDetails} />}
                 {activeMenuIndex === 1 && <MeetingParticipant meetingParticipant={meetingParticipant} />}
             </div>
           </div>
