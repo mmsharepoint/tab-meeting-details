@@ -2,9 +2,9 @@ import * as React from "react";
 import { Button, Grid, Segment, Text } from "@fluentui/react-northstar";
 
 export const MeetingDetails = (props) => {
-  const reloadDetails = async () => { // ToDo: useCallback
+  const reloadDetails = React.useCallback(() => {
     props.reloadDetails();
-  };
+  },[props.meetingDetails?.details.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -54,7 +54,7 @@ export const MeetingDetails = (props) => {
         <Text content="Conversation isGroup" />
         <Text content={props.meetingDetails?.conversation.isGroup.toString()} />
       </Grid>
-      <Button title="Snd Message" onClick={reloadDetails}>Show Details</Button>
+      <Button title="Snd Message" onClick={reloadDetails} primary>Reload Details</Button>
     </div>
   );
 }

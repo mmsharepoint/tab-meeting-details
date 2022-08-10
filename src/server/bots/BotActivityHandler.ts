@@ -22,13 +22,12 @@ export class BotActivityHandler extends TeamsActivityHandler {
     });
 
     this.onConversationUpdate(async (context, next) => {
-      store.setItem("serviceUrl", context.activity.serviceUrl);       
+      store.setItem("serviceUrl", context.activity.serviceUrl);
     });
   }
 
   protected async handleTeamsTaskModuleSubmit(_context: TurnContext, _taskModuleRequest: TaskModuleRequest): Promise<any> {
-    log(_context.activity);
-    log(_taskModuleRequest);
+    log(_context.activity);    
 
     switch (_taskModuleRequest.data.verb) {
       case "getMeetingDetails":
@@ -43,13 +42,14 @@ export class BotActivityHandler extends TeamsActivityHandler {
             value: {
               title: "Your Meeting Details",
               height: 500,
-              width: "medium",
+              width: "large",
               card: CardFactory.adaptiveCard(card),
             } as TaskModuleTaskInfo
           }
         };
         return Promise.resolve(Response);
       default:
+        store.setItem("serviceUrl", _context.activity.serviceUrl);
         return null;
     }
 }

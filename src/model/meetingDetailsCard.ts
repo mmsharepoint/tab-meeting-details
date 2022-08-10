@@ -93,10 +93,14 @@ const detailsCard = {
         verb: "close",
         msteams: {
           type: "task/submit"
-        }
+        },
+        meetingDetails: {}
       }
     }
   ],
+  "msteams": {
+    "width": "Full"
+  },
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "version": "1.4"
 };
@@ -115,5 +119,6 @@ export const getMeetingDetailsCard = (meetingDetails: IMeetingDetails) => {
   detailsCard.body![1].facts![9].value = meetingDetails.organizer.id;
   detailsCard.body![1].facts![10].value = meetingDetails.organizer.aadObjectId;
   detailsCard.body![1].facts![11].value = meetingDetails.organizer.tenantId;
+  detailsCard.actions[0].data.meetingDetails = meetingDetails;
   return detailsCard;
 };

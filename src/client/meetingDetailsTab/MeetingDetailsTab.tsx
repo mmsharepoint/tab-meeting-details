@@ -16,6 +16,7 @@ import { MeetingParticipant } from "./components/MeetingParticipant";
 export const MeetingDetailsTab = () => {
   const [{ inTeams, theme, context }] = useTeams();
   const [entityId, setEntityId] = useState<string | undefined>();
+  const [meetingId, setMeetingId] = useState<string>();
   const [meetingDetails, setMeetingDetails] = useState<IMeetingDetails>();
   const [meetingParticipant, setMeetingParticipant] = useState<IMeetingParticipant>();
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0);
@@ -36,8 +37,8 @@ export const MeetingDetailsTab = () => {
     setMeetingDetails(response.data); 
   };
 
-  const reloadDetails = () => {
-    TaskCard!.actions![0].data!.data.meetingId = context?.meeting!.id!;
+  const reloadDetails = React.useCallback(() => {
+    TaskCard!.actions![0].data!.data.meetingId = meetingId!;
     const taskCardAttachment = {
                                 contentType: "application/vnd.microsoft.card.adaptive",
                                 content: TaskCard } 
@@ -50,12 +51,13 @@ export const MeetingDetailsTab = () => {
     };
 
     tasks.startTask(taskModuleInfo, reloadDetailsCB);
-  };
+  }, [meetingId]);
 
-  const reloadDetailsCB = () => {
-      // tasks.submitTask({ meetingId: context?.meeting?.id }, process.env.MICROSOFT_APP_ID);        
-      tasks.submitTask();
-  };
+  const reloadDetailsCB = React.useCallback(() => {
+    getDetails(meetingId!);     
+    // tasks.submitTask();
+  }, [meetingId]);
+
   const getParticipant = async (meetingID: string, userId, tenantId) => {        
     const response = await Axios.post(`https://${process.env.PUBLIC_HOSTNAME}/api/getParticipantDetails/${meetingID}/${userId}/${tenantId}`);
     setMeetingParticipant(response.data);
@@ -79,6 +81,7 @@ export const MeetingDetailsTab = () => {
       if (context.meeting) {
         getDetails(context.meeting.id);
         getParticipant(context.meeting.id, context.user?.id, context.user?.tenant?.id);
+        setMeetingId(context.meeting.id);
       }
     }
   }, [context]);
