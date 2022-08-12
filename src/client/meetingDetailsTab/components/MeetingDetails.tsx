@@ -4,7 +4,7 @@ import { Button, Grid, Segment, Text } from "@fluentui/react-northstar";
 export const MeetingDetails = (props) => {
   const reloadDetails = React.useCallback(() => {
     props.reloadDetails();
-  },[props.meetingDetails?.details.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  },[props.reloadDetails]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

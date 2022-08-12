@@ -1,29 +1,31 @@
-export const TaskCard = {
+export const InitParticipantCard = {
   type: "AdaptiveCard",
   body: [
     {
       type: "TextBlock",
       size: "Medium",
       weight: "Bolder",
-      text: "Meeting Details"
+      text: "Participant Details"
     },
     {
       type: "TextBlock",
-      text: "This actions sends current meeting Details to the chat.",
+      text: "This action reloads current meeting participant details.",
       wrap: true
     }
   ],
   actions: [{
     type: "Action.Submit",
-    id: "SndDetails",
-    title: "Send Details",
+    id: "SndParticipantDetails",
+    title: "Load Participant Details",
     data: {
       msteams: {
         "type": "task/submit"
       },
-      verb: "getMeetingDetails",
+      verb: "getParticipantDetails",
       data: {
-        meetingId: ""
+        meetingId: "",
+        userId: "",
+        tenantId: ""
       }
     }
   }],

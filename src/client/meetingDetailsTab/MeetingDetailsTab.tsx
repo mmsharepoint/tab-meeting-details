@@ -6,7 +6,8 @@ import { app, TaskInfo, tasks } from "@microsoft/teams-js";
 import Axios from "axios";
 import { IMeetingDetails } from "../../model/IMeetingDetails";
 import { IMeetingParticipant } from "../../model/IMeetingParticipant";
-import { TaskCard } from "../../model/taskCard";
+import { InitParticipantCard } from "../../model/initParticipantCard";
+import { InitMeetingDetailsCard } from "../../model/initMeetingDetailsCard";
 import { MeetingDetails } from "./components/MeetingDetails";
 import { MeetingParticipant } from "./components/MeetingParticipant";
 
@@ -17,6 +18,8 @@ export const MeetingDetailsTab = () => {
   const [{ inTeams, theme, context }] = useTeams();
   const [entityId, setEntityId] = useState<string | undefined>();
   const [meetingId, setMeetingId] = useState<string>();
+  const [userId, setUserId] = useState<string>();
+  const [tenantId, setTenantId] = useState<string>();
   const [meetingDetails, setMeetingDetails] = useState<IMeetingDetails>();
   const [meetingParticipant, setMeetingParticipant] = useState<IMeetingParticipant>();
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0);
@@ -37,23 +40,23 @@ export const MeetingDetailsTab = () => {
     setMeetingDetails(response.data); 
   };
 
-  const reloadDetails = React.useCallback(() => {
-    TaskCard!.actions![0].data!.data.meetingId = meetingId!;
-    const taskCardAttachment = {
+  const reloadMeetingDetails = React.useCallback(() => {
+    InitMeetingDetailsCard!.actions![0].data!.data.meetingId = meetingId!;
+    const initCardAttachment = {
                                 contentType: "application/vnd.microsoft.card.adaptive",
-                                content: TaskCard } 
+                                content: InitMeetingDetailsCard };
     const taskModuleInfo: TaskInfo = {
-        title: "Snd Details",
-        card: JSON.stringify(taskCardAttachment),
+        title: "Reload Details",
+        card: JSON.stringify(initCardAttachment),
         width: 300,
         height: 250,
         completionBotId: process.env.MICROSOFT_APP_ID
     };
 
-    tasks.startTask(taskModuleInfo, reloadDetailsCB);
+    tasks.startTask(taskModuleInfo, reloadMeetingDetailsCB);
   }, [meetingId]);
 
-  const reloadDetailsCB = React.useCallback(() => {
+  const reloadMeetingDetailsCB = React.useCallback(() => {
     getDetails(meetingId!);     
     // tasks.submitTask();
   }, [meetingId]);
@@ -62,6 +65,30 @@ export const MeetingDetailsTab = () => {
     const response = await Axios.post(`https://${process.env.PUBLIC_HOSTNAME}/api/getParticipantDetails/${meetingID}/${userId}/${tenantId}`);
     setMeetingParticipant(response.data);
   };
+
+  const reloadParticipantDetails = React.useCallback(() => {
+    InitParticipantCard!.actions![0].data!.data.meetingId = meetingId!;
+    InitParticipantCard!.actions![0].data!.data.userId = userId!;
+    InitParticipantCard!.actions![0].data!.data.tenantId = tenantId!;
+
+    const initCardAttachment = {
+                                contentType: "application/vnd.microsoft.card.adaptive",
+                                content: InitParticipantCard };
+    const taskModuleInfo: TaskInfo = {
+        title: "Reload Details",
+        card: JSON.stringify(initCardAttachment),
+        width: 300,
+        height: 250,
+        completionBotId: process.env.MICROSOFT_APP_ID
+    };
+
+    tasks.startTask(taskModuleInfo, reloadParticipantDetailsCB);
+  }, [meetingId, userId]);
+
+  
+  const reloadParticipantDetailsCB = React.useCallback(() => {
+    getParticipant(meetingId!, userId, tenantId);     
+  }, [meetingId, userId, tenantId]);
 
   const onActiveIndexChange = (event, data) => {
     setActiveMenuIndex(data.activeIndex);
@@ -82,6 +109,8 @@ export const MeetingDetailsTab = () => {
         getDetails(context.meeting.id);
         getParticipant(context.meeting.id, context.user?.id, context.user?.tenant?.id);
         setMeetingId(context.meeting.id);
+        setUserId(context.user?.id);
+        setTenantId(context.user?.tenant?.id);
       }
     }
   }, [context]);
@@ -110,8 +139,8 @@ export const MeetingDetailsTab = () => {
                 aria-label="Meeting Information"
             />
             <div className="l-content">
-                {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} reloadDetails={reloadDetails} />}
-                {activeMenuIndex === 1 && <MeetingParticipant meetingParticipant={meetingParticipant} />}
+                {activeMenuIndex === 0 && <MeetingDetails meetingDetails={meetingDetails} reloadDetails={reloadMeetingDetails} />}
+                {activeMenuIndex === 1 && <MeetingParticipant meetingParticipant={meetingParticipant} reloadDetails={reloadParticipantDetails} />}
             </div>
           </div>
         </Flex.Item>

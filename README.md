@@ -18,6 +18,13 @@ Participant Details in Meeting Chat Tab
 
 ![Participant Details in Meeting Chat Tab](assets/08TeamsMeeting_ParticipantDetails.png)
 
+Init Reload Participant Details
+
+![Init Reload Participant Details](assets/10initReloadDialog.png)
+
+Participant Details in Adaptive Card Task Module
+![Participant Details in Adaptive Card Task Module](assets/11TeamsMeeting_ParticipantDetails_TaskModule.png)
+
 For further details see the author's [blog post](https://mmsharepoint.wordpress.com/2022/08/)
 
 ## Prerequisites
