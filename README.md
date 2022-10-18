@@ -97,7 +97,7 @@ This is a Teams Tab meeting app to show up in chatTab or detailsTab
 * Show a tab in pre-meeting experience in chatTab or detailsTab
 * [Use a Bot in Teams Meeting app](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/what-are-bots?WT.mc_id=M365-MVP-5004617)
 * [Chain Task Modules with Adaptive Cards](https://docs.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/task-modules-bots?tabs=nodejs&WT.mc_id=M365-MVP-5004617#submit-the-result-of-a-task-module)
-* Use [Meeting apps Api references](https://docs.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/api-references?WT.mc_id=M365-MVP-5004617) to get meeting and participant details
+* Use [Meeting apps Api references](https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis?WT.mc_id=M365-MVP-5004617) to get meeting and participant details
 
 ## Building the manifest
 
