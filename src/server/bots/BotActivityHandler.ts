@@ -36,9 +36,9 @@ export class BotActivityHandler extends TeamsActivityHandler {
       case "getMeetingDetails":
         meetingID = _taskModuleRequest.data.data.meetingId;
         const meetingDetails = await TeamsInfo.getMeetingInfo(_context, meetingID) as IMeetingDetails;
-
+        log(meetingDetails);
         const card = getMeetingDetailsCard(meetingDetails);
-
+        log(card);
         const Response: TaskModuleResponse = {
           task: {
             type: 'continue',
